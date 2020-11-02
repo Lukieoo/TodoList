@@ -11,9 +11,6 @@ import dagger.android.DaggerApplication
 @Module
 abstract class  ComponentModule {
 
-    @Binds
-    abstract fun bindApplication(app: DaggerApplication): Application
-
     @ContributesAndroidInjector
     abstract fun contributeMainActivity(): MainActivity
 }

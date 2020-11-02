@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
     app:startDestination="@id/dataFragment">
 
     <fragment
         android:id="@+id/dataFragment"
         android:name="com.lukieoo.todolist.fragments.DataFragment"
-        android:label="DataFragment" >
+        android:label="DataFragment">
         <action
             android:id="@+id/action_dataFragment_to_addFragment"
-            app:destination="@id/addFragment" />
+            app:destination="@id/addFragment">
+            <argument
+                android:name="myData"
+                android:defaultValue=""
+                app:argType="string" />
+            <argument
+                android:name="myTitle"
+                android:defaultValue=""
+                app:argType="string" />
+            <argument
+                android:name="myDescription"
+                android:defaultValue=""
+                app:argType="string" />
+            <argument
+                android:name="myPhoto"
+                android:defaultValue=""
+                app:argType="string" />
+            <argument
+                android:name="myID"
+                android:defaultValue=""
+                app:argType="string" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/addFragment"

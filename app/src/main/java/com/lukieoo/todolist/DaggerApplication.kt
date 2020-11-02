@@ -14,8 +14,8 @@ class DaggerApplication: Application(), HasAndroidInjector {
 
     override fun onCreate() {
         super.onCreate()
-          DaggerAppComponent.create().inject(this)
-//        DaggerAppComponent.builder().application(this)!!.build().inject(this)
+
+        DaggerAppComponent.builder().application(this)!!.build().inject(this)
     }
 
     override fun androidInjector()=androidInjector

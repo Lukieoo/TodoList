@@ -23,4 +23,6 @@ abstract class FragmentBindingModule {
 
     @Binds
     abstract fun bindFragmentFactory(factory: InjectingFragmentFactory): FragmentFactory
+
+
 }
