@@ -1,7 +1,9 @@
 package com.lukieoo.todolist.fragments
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -36,7 +38,7 @@ class DataFragment @Inject constructor() : Fragment(R.layout.fragment_data) {
 
     private fun initView(view: View) {
 
-        var todoAdapter: TodoAdapter = TodoAdapter(itemClick = object :
+        var todoAdapter: TodoAdapter = TodoAdapter(requireContext(),itemClick = object :
             TodoAdapter.OnClickAdapterListener {
 
             override fun onClick(todo: Todo) {
@@ -51,9 +53,25 @@ class DataFragment @Inject constructor() : Fragment(R.layout.fragment_data) {
                 }
             }
 
+            override fun onLongClick(todo: Todo) {
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Delete item")
+                    .setMessage("Are you sure you want to delete this item?")
+                    .setPositiveButton(
+                        android.R.string.yes,
+                        DialogInterface.OnClickListener { dialog, which ->
+                            docRef.document(todo.id).delete()
+                        })
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(R.drawable.ic_delete)
+                    .show()
+            }
+
         })
 
         var items: MutableList<Todo> = arrayListOf()
+
+        swipeRefreshLayout.isRefreshing=true
 
         registration = docRef.orderBy("date").addSnapshotListener { snapshot, e ->
 
@@ -65,10 +83,10 @@ class DataFragment @Inject constructor() : Fragment(R.layout.fragment_data) {
                 var todo: Todo = d.toObject(Todo::class.java)!!
                 todo.id = d.id
                 items.add(todo)
-
             }
             todoAdapter.notifyDataSetChanged()
 
+            swipeRefreshLayout.isRefreshing=false
         }
 
         todoAdapter.setPosts(items)
@@ -87,8 +105,11 @@ class DataFragment @Inject constructor() : Fragment(R.layout.fragment_data) {
                 navController.navigate(R.id.action_dataFragment_to_addFragment)
             }
 
-
         }
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false;
+        }
+
     }
 
     override fun onPause() {

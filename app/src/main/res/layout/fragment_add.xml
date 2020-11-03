@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <TextView
+
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/productsansmedium"
+        android:padding="15dp"
+        android:text="Create\nNew Task"
+        android:textColor="#2F2F2F"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,80 +35,225 @@
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textTitle">
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/inputLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_below="@+id/current"
+            android:hint="Task title"
+            android:paddingBottom="10dp">
 
-            <ImageView
-                android:id="@+id/itPhoto"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_add" />
-
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/itTitle"
+                style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
+                android:drawablePadding="10dip"
+                android:fontFamily="@font/productsansmedium" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/current"
+            android:hint="Task title"
+            android:paddingBottom="10dp">
 
-                    <EditText
-                        android:id="@+id/itTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@android:drawable/edit_text"
-                        android:padding="10dp"
-                        android:text="Title of Todo" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/itDescription"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dip"
+                android:fontFamily="@font/productsansmedium"
+                android:gravity="top"
+                android:lines="6"
+                android:maxLength="200" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:id="@+id/itDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="2020.10.11" />
-                </LinearLayout>
+        <TextView
+            android:id="@+id/textTopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/productsansmedium"
+            android:padding="15dp"
+            android:text="Chose Icon"
+            android:textColor="#2F2F2F"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
 
-                <EditText
-                    android:id="@+id/itDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:background="@android:drawable/edit_text"
-                    android:gravity="top"
-                    android:lines="10"
-                    android:maxLength="200"
-                    android:padding="10dp"
-                    android:text="Title of Todo" />
+        <HorizontalScrollView
+            android:id="@+id/hsv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:fillViewport="true"
+            android:measureAllChildren="false"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/innerLay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+
+                    xmlns:card_view="http://schemas.android.com/tools"
+                    android:id="@+id/cardImage1"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="6dp"
+                    card_view:cardBackgroundColor="@android:color/transparent">
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+
+                            android:id="@+id/photoType1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:foregroundTint="@color/textColor"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/run" />
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/tools"
+                    android:id="@+id/cardImage2"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="6dp"
+                    card_view:cardBackgroundColor="@android:color/transparent">
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+
+                            android:id="@+id/photoType2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:foregroundTint="@color/textColor"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/work" />
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/tools"
+                    android:id="@+id/cardImage3"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="3dp"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="6dp"
+                    card_view:cardBackgroundColor="@android:color/transparent">
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+
+                            android:id="@+id/photoType3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:foregroundTint="@color/textColor"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/read" />
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
-        </LinearLayout>
 
-        <View
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/textPast"
             android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/cardview_dark_background" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/productsansmedium"
+            android:padding="15dp"
+            android:text="Or paste your url"
+            android:textColor="#2F2F2F"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
 
+        <com.google.android.material.textfield.TextInputLayout
 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/current"
+            android:hint="Paste url"
+            android:paddingBottom="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/itUrl"
+                style="@style/MyEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dip"
+                android:fontFamily="@font/productsansmedium" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ProgressBar
+
+            android:id="@+id/progress_add"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:indeterminate="true"
+            android:visibility="gone" />
     </LinearLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <Button
         android:id="@+id/addData"
-        android:src="@drawable/ic_add"
-        android:tint="@android:color/white"
-        android:layout_margin="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/button_press"
+        android:elevation="5dp"
+        android:fontFamily="@font/productsansmedium"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="Add new Task"
+        android:textAllCaps="false"
+        android:textColor="@color/textColorBtn"
+        android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,63 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:orientation="vertical"
-    android:layout_marginTop="5dp"
-    android:padding="10dp">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    >
 
-    <ImageView
-        android:src="@drawable/ic_add"
-        android:id="@+id/itPhoto"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
-
-    <LinearLayout
-        android:layout_marginLeft="10dp"
+    <androidx.cardview.widget.CardView
+        app:cardElevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="6dp"
+        app:cardCornerRadius="5dp"
+        >
 
-        <LinearLayout
+        <RelativeLayout
+            android:background="#fff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="vertical"
+            android:padding="15dp">
+
+
+                <RelativeLayout
+                    android:id="@+id/parentRelative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                  >
+                    <androidx.cardview.widget.CardView
+                        xmlns:card_view="http://schemas.android.com/tools"
+                        android:id="@+id/cardImage"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="3dp"
+                        android:orientation="vertical"
+                        android:padding="3dp"
+                        app:cardCornerRadius="6dp"
+                        app:cardBackgroundColor="@android:color/transparent"
+                        card_view:cardBackgroundColor="@android:color/transparent">
+
+                        <RelativeLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/itPhoto"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/holder" />
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/productsansmedium"
+                        android:layout_toRightOf="@id/cardImage"
+                        android:layout_toLeftOf="@id/itDate"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:textStyle="bold"
+                        android:textColor="#505362"
+                        android:id="@+id/itTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Title of Todo" />
+
+                    <TextView
+                        android:fontFamily="@font/productsansmedium"
+                        android:layout_marginRight="5dp"
+                        android:textColor="#5B7189"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/itDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="2020.10.11" />
+                </RelativeLayout>
 
             <TextView
-                android:text="Title of Todo"
-                android:id="@+id/itTitle"
-                android:layout_width="wrap_content"
+                android:fontFamily="@font/productsansmedium"
+                android:visibility="gone"
+                android:textColor="#5B7189"
+                android:layout_marginLeft="60dp"
+                android:layout_below="@id/parentRelative"
+                android:id="@+id/itDescription"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:maxLength="200"
+                android:text="Title of Todo" />
 
-            <TextView
-                android:gravity="end"
-                android:text="2020.10.11"
-                android:id="@+id/itDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
-        <TextView
-            android:maxLength="200"
-            android:layout_marginTop="10dp"
-            android:text="Title of Todo"
-            android:id="@+id/itDescription"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-    </LinearLayout>
+            </RelativeLayout>
 
-    </LinearLayout>
-    <View
-        android:background="@color/cardview_dark_background"
-        android:layout_marginTop="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"/>
+    </androidx.cardview.widget.CardView>
+
 
 </LinearLayout>
