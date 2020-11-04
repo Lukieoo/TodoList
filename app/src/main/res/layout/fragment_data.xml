@@ -24,6 +24,7 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/add_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,21 +34,29 @@
             android:id="@+id/todo_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="true"
 
             tools:listitem="@layout/item_todo" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-
-        app:backgroundTint="@color/colorPrimary"
+    <Button
         android:id="@+id/add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_add"
-        android:tint="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_press"
+        android:elevation="5dp"
+        android:fontFamily="@font/productsansmedium"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="Add new Task"
+        android:textAllCaps="false"
+        android:textColor="@color/textColorBtn"
+        android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -1,7 +1,6 @@
 package com.lukieoo.todolist.di
 
 import android.app.Application
-import com.anioncode.gamevideodagger.viewmodels.ViewModelFactoryModule
 import com.lukieoo.todolist.DaggerApplication
 import dagger.BindsInstance
 import dagger.Component
@@ -16,14 +15,13 @@ import javax.inject.Singleton
         ComponentModule::class,
         FragmentsModule::class,
         FirebaseModule::class,
-        ViewModelFactoryModule::class
+        AdapterModule::class
     ]
 )
 
 
 interface AppComponent :
-    AndroidInjector<DaggerApplication>
-{
+    AndroidInjector<DaggerApplication> {
     fun inject(application: Application)
 
     @Component.Builder
