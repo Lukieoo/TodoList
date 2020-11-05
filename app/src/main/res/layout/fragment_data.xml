@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/productsansmedium"
         android:padding="15dp"
-        android:text="Task Todo"
+        android:text="@string/task_todo"
         android:textSize="25sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="5dp" />
@@ -52,7 +52,7 @@
         android:fontFamily="@font/productsansmedium"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:text="Add new Task"
+        android:text="@string/add_new_task"
         android:textAllCaps="false"
         android:textColor="@color/textColorBtn"
         android:textSize="15sp"

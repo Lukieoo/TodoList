@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -26,32 +27,57 @@ import kotlin.collections.ArrayList
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
+import java.lang.Exception
 
-class TodoAdapter @Inject constructor(var context: Context, var itemClick: OnClickAdapterListener,var docRef: CollectionReference) :
+class TodoAdapter @Inject constructor(
+    var context: Context,
+    var itemClick: OnClickAdapterListener,
+    var docRef: CollectionReference
+) :
     RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
-
 
     lateinit var items: ArrayList<Todo>
 
     interface OnClickAdapterListener {
-        fun onClick(todo: Todo,view: View)
-        fun onLongClick(todo: Todo,view: View,docRef: CollectionReference)
+        fun onClick(todo: Todo, view: View)
+        fun onLongClick(todo: Todo, view: View, docRef: CollectionReference)
     }
 
     fun setItems(items: List<Todo>) {
         this.items = items as ArrayList<Todo>
-        notifyDataSetChanged()
+
+        try {
+            notifyDataSetChanged()
+        } catch (e: NullPointerException) {
+            e.printStackTrace()
+        }
+
     }
+
     fun addItems(items: List<Todo>) {
-
-
         if (items.isNotEmpty()) {
+            for (element in items) {
+                for (elementTmp in 0 until this.items.size) {
+                    try {
+                        if (element.id == this.items[elementTmp].id) {
+                            this.items.removeAt(elementTmp)
+                        }
+                    } catch (e: IndexOutOfBoundsException) {
+                        e.printStackTrace()
+                    }
+
+                }
+            }
+
             for (element in items) {
                 this.items.add(element)
             }
         }
+
         notifyDataSetChanged()
+
     }
+
     override fun getItemCount(): Int {
         return if (::items.isInitialized) {
 
@@ -77,11 +103,14 @@ class TodoAdapter @Inject constructor(var context: Context, var itemClick: OnCli
 
         if (model.photo.trim() != "") {
 
-            Picasso.get().load(model.photo).resize(150,150).centerCrop().placeholder(context.getDrawable(R.drawable.holder)!!)
+            Picasso.get().load(model.photo)
+                .resize(150, 150)
+                .centerCrop()
+                .placeholder(ContextCompat.getDrawable(context, R.drawable.holder)!!)
                 .into(holder.itPhoto)
 
-        }else{
-            holder.itPhoto.setImageDrawable(context.getDrawable(R.drawable.holder)!!)
+        } else {
+            holder.itPhoto.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.holder)!!)
 
         }
 
@@ -91,20 +120,15 @@ class TodoAdapter @Inject constructor(var context: Context, var itemClick: OnCli
             holder.itDescription.visibility = View.VISIBLE
 
         } else {
-
             holder.itDescription.visibility = View.GONE
-
         }
 
         holder.itemView.setOnClickListener {
-
-            itemClick.onClick(model,it)
-
-
+            itemClick.onClick(model, it)
         }
 
         holder.itemView.setOnLongClickListener {
-            itemClick.onLongClick(model,it,docRef)
+            itemClick.onLongClick(model, it, docRef)
             false
         }
     }

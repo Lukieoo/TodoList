@@ -15,7 +15,8 @@ import javax.inject.Singleton
         ComponentModule::class,
         FragmentsModule::class,
         FirebaseModule::class,
-        AdapterModule::class
+        AdapterModule::class,
+        EventModule::class
     ]
 )
 
@@ -28,7 +29,6 @@ interface AppComponent :
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
-
         fun build(): AppComponent
     }
 

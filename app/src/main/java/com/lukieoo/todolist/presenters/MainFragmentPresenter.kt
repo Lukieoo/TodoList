@@ -4,10 +4,9 @@ import android.view.View as Callback
 import com.lukieoo.todolist.model.Todo
 import java.lang.Exception
 
-class MainFragmentPresenter(view: View) {
+class MainFragmentPresenter(private var view: View) {
 
     private var listTodo: MutableList<Todo> = arrayListOf()
-    private var view: View = view
 
     fun updateListTodo(listTodo: MutableList<Todo>) {
         this.listTodo=listTodo

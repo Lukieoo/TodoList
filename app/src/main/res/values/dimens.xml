@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dim_elevation">4dp</dimen>
+    <dimen name="dim_margin_top">10dp</dimen>
+    <dimen name="dim_padding">15dp</dimen>
+    <dimen name="dim_text_main">25sp</dimen>
+    <dimen name="dim_padding_layout">10dp</dimen>
+</resources>

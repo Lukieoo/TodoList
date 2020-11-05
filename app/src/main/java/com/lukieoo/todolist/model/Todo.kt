@@ -1,6 +1,5 @@
 package com.lukieoo.todolist.model
 
-import kotlinx.android.synthetic.main.item_todo.view.*
 import java.io.Serializable
 
 data class Todo (

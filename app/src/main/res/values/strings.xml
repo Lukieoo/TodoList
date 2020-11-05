@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">TodoList</string>
+    <string name="create_nnew_task">Create New Task</string>
+    <string name="task_title">Task title</string>
+    <string name="chose_icon">Chose Icon</string>
+    <string name="or_paste_your_url">Or paste your url</string>
+    <string name="paste_url">Paste url</string>
+    <string name="todo">TODO</string>
+    <string name="task_todo">Task Todo</string>
+    <string name="add_new_task">Add new Task</string>
+    <string name="_2020_10_11">2020.10.11</string>
+    <string name="title_of_todo">Title of Todo</string>
+    <string name="run">https://anioncode.pl/miquido/run.png</string>
+    <string name="work">https://anioncode.pl/miquido/work.png</string>
+    <string name="read">https://anioncode.pl/miquido/read.png</string>
+    <string name="toast_updated">Task updated with success</string>
+    <string name="toast_added">Task added with success</string>
+    <string name="toast_error">Error adding task</string>
 </resources>

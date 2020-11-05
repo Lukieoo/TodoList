@@ -8,14 +8,13 @@ import javax.inject.Inject
 
 class DaggerApplication: Application(), HasAndroidInjector {
 
-
     @Inject
-    lateinit var androidInjector:DispatchingAndroidInjector<Any> //in Java Object
+    lateinit var androidInjector:DispatchingAndroidInjector<Any>
 
     override fun onCreate() {
         super.onCreate()
 
-        DaggerAppComponent.builder().application(this)!!.build().inject(this)
+        DaggerAppComponent.builder().application(this).build().inject(this)
     }
 
     override fun androidInjector()=androidInjector

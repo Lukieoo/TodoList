@@ -51,7 +51,8 @@
                                 android:layout_height="match_parent"
                                 android:adjustViewBounds="true"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/holder" />
+                                android:src="@drawable/holder"
+                                android:contentDescription="@string/todo" />
                         </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -60,45 +61,43 @@
                         android:maxLines="2"
                         android:ellipsize="end"
                         android:fontFamily="@font/productsansmedium"
-                        android:layout_toRightOf="@id/cardImage"
-                        android:layout_toLeftOf="@id/itDate"
+                        android:layout_toEndOf="@id/cardImage"
+                        android:layout_toStartOf="@id/itDate"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:textStyle="bold"
                         android:textColor="#505362"
                         android:id="@+id/itTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Title of Todo" />
+                        android:text="@string/title_of_todo" />
 
                     <TextView
                         android:fontFamily="@font/productsansmedium"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:textColor="#5B7189"
                         android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
                         android:id="@+id/itDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="end"
-                        android:text="2020.10.11" />
+                        android:text="@string/_2020_10_11" />
                 </RelativeLayout>
 
             <TextView
                 android:fontFamily="@font/productsansmedium"
                 android:visibility="gone"
                 android:textColor="#5B7189"
-                android:layout_marginLeft="60dp"
+                android:layout_marginStart="60dp"
                 android:layout_below="@id/parentRelative"
                 android:id="@+id/itDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_weight="1"
                 android:maxLength="200"
-                android:text="Title of Todo" />
+                android:text="@string/title_of_todo" />
 
             </RelativeLayout>
 

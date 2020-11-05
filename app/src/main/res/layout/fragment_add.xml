@@ -2,14 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="#F1F5F8"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/white"
-        android:elevation="4dp"
+        android:background="@android:color/transparent"
+        android:elevation="@dimen/dim_elevation"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="?attr/homeAsUpIndicator"
@@ -20,19 +21,19 @@
         android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dim_margin_top"
         android:fontFamily="@font/productsansmedium"
-        android:padding="15dp"
-        android:text="Create\nNew Task"
+        android:padding="@dimen/dim_padding"
+        android:text="@string/create_nnew_task"
         android:textColor="#2F2F2F"
-        android:textSize="25sp"
+        android:textSize="@dimen/dim_text_main"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:padding="@dimen/dim_padding_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitle">
@@ -42,11 +43,12 @@
             android:id="@+id/inputLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/current"
-            android:hint="Task title"
-            android:paddingBottom="10dp">
+            android:hint="@string/task_title"
+            android:paddingBottom="@dimen/dim_padding_layout">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:maxLines="1"
+                android:backgroundTint="@color/textColorBtn"
                 android:id="@+id/itTitle"
                 style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"
@@ -60,13 +62,13 @@
             android:id="@+id/inputLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/current"
-            android:hint="Task title"
-            android:paddingBottom="10dp">
+            android:hint="@string/task_title"
+            android:paddingBottom="@dimen/dim_padding_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/itDescription"
                 style="@style/MyEditTextStyle"
+                android:backgroundTint="@color/textColorBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dip"
@@ -82,8 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/productsansmedium"
-            android:padding="15dp"
-            android:text="Chose Icon"
+            android:padding="@dimen/dim_padding"
+            android:text="@string/chose_icon"
             android:textColor="#2F2F2F"
             android:textSize="15sp"
             app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
@@ -92,7 +94,6 @@
             android:id="@+id/hsv"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:fillViewport="true"
             android:measureAllChildren="false"
             android:scrollbars="none">
@@ -129,7 +130,8 @@
                             android:adjustViewBounds="true"
                             android:foregroundTint="@color/textColor"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/run" />
+                            android:src="@drawable/run"
+                            android:contentDescription="@string/todo" />
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -158,7 +160,8 @@
                             android:adjustViewBounds="true"
                             android:foregroundTint="@color/textColor"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/work" />
+                            android:src="@drawable/work"
+                            android:contentDescription="@string/todo" />
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -187,7 +190,8 @@
                             android:adjustViewBounds="true"
                             android:foregroundTint="@color/textColor"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/read" />
+                            android:src="@drawable/read"
+                            android:contentDescription="@string/todo" />
                     </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -202,8 +206,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/productsansmedium"
-            android:padding="15dp"
-            android:text="Or paste your url"
+            android:padding="@dimen/dim_padding"
+            android:text="@string/or_paste_your_url"
             android:textColor="#2F2F2F"
             android:textSize="15sp"
             app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
@@ -212,11 +216,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/current"
-            android:hint="Paste url"
+            android:hint="@string/paste_url"
             android:paddingBottom="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:backgroundTint="@color/textColorBtn"
+                android:maxLines="3"
                 android:id="@+id/itUrl"
                 style="@style/MyEditTextStyle"
                 android:layout_width="match_parent"

@@ -3,7 +3,9 @@ package com.lukieoo.todolist.utils
 import android.app.Activity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-
+/**
+ * Object with hide keyboard method
+ */
 object SystemUtils {
     fun hideKeyboard(activity: Activity) {
         val imm: InputMethodManager =

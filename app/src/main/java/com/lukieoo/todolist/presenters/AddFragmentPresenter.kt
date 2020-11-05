@@ -5,12 +5,10 @@ import android.view.View as Callback
 import com.lukieoo.todolist.model.Todo
 import kotlin.collections.HashMap
 
-class AddFragmentPresenter(view: View) {
+class AddFragmentPresenter(private var view: View) {
 
     private lateinit var todoBundle: Todo
     private var todoPost: MutableMap<String, Any> = HashMap()
-
-    private var view: View = view
 
     fun updateTodoBundle(todoBundle: Todo) {
         this.todoBundle = todoBundle
@@ -30,10 +28,7 @@ class AddFragmentPresenter(view: View) {
         todoPost["description"] = description
         todoPost["photo"] = photo
         todoPost["date"] = date
-
         this.todoPost = todoPost
-
-
         view.setPostDataForFireStore(todoPost, id, callback)
     }
 
@@ -43,14 +38,15 @@ class AddFragmentPresenter(view: View) {
 
     interface View {
         fun setFromBundleView(todoBundle: Todo)
+        fun showProgressBar()
+        fun hideProgressBar()
+        fun showEventSuccess(title: String, info: String)
+        fun showEventError(title: String, info: String)
+        fun navigatePopBack(callback: Callback)
         fun setPostDataForFireStore(
             todoPost: MutableMap<String, Any>,
             id: String,
             callback: Callback
         )
-        fun showProgressBar()
-        fun hideProgressBar()
-        fun showEvent(title: String, info: String)
-        fun navigatePopBack(callback: Callback)
     }
 }

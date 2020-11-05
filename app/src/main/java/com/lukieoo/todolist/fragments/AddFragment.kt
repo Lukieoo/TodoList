@@ -1,21 +1,23 @@
 package com.lukieoo.todolist.fragments
 
-import android.content.Context
+
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.lukieoo.todolist.R
+import com.lukieoo.todolist.events.FeedbackEvent
+import com.lukieoo.todolist.events.NavEvent
 import com.lukieoo.todolist.model.Todo
 import com.lukieoo.todolist.presenters.AddFragmentPresenter
 import com.lukieoo.todolist.utils.SystemUtils
+import io.reactivex.processors.PublishProcessor
 import kotlinx.android.synthetic.main.fragment_add.*
 import java.util.*
 import javax.inject.Inject
@@ -26,20 +28,19 @@ class AddFragment @Inject constructor() : Fragment(R.layout.fragment_add),
 
     @Inject
     lateinit var db: FirebaseFirestore
-
     @Inject
     lateinit var docRef: CollectionReference
+    @Inject
+    lateinit var navEvents: PublishProcessor<NavEvent>
+    @Inject
+    lateinit var feedbackEvent: PublishProcessor<FeedbackEvent>
 
     private lateinit var todo: Todo
 
     private var photoUrl: String = ""
 
-    private val urlForExample: List<String> = listOf(
-        "https://anioncode.pl/miquido/run.png",
-        "https://anioncode.pl/miquido/work.png",
-        "https://anioncode.pl/miquido/read.png"
-    )
-    lateinit var drawableChoose: Drawable
+    private lateinit var urlForExample: List<String>
+    private lateinit var drawableChoose: Drawable
 
     private lateinit var presenter: AddFragmentPresenter
 
@@ -47,10 +48,10 @@ class AddFragment @Inject constructor() : Fragment(R.layout.fragment_add),
         super.onViewCreated(view, savedInstanceState)
 
         presenter = AddFragmentPresenter(this)
-        drawableChoose = resources.getDrawable(R.drawable.ic_check_circle, null)
+        drawableChoose = getDrawable(requireContext(),R.drawable.ic_check_circle)!!
 
-        initBundle()
         initPhoto()
+        initBundle()
         initView()
     }
 
@@ -64,16 +65,14 @@ class AddFragment @Inject constructor() : Fragment(R.layout.fragment_add),
                     .trim() else photoUrl,
                 date = Calendar.getInstance().timeInMillis.toString(),
                 callback = it
-
             )
         }
-        my_toolbar.setNavigationOnClickListener(View.OnClickListener {
+        my_toolbar.setNavigationOnClickListener {
             presenter.navigateBack(it)
-        })
+        }
     }
 
     private fun initBundle() {
-
         val bundle = this.arguments
         if (bundle != null) {
             if (bundle.containsKey("todo"))
@@ -89,7 +88,11 @@ class AddFragment @Inject constructor() : Fragment(R.layout.fragment_add),
     }
 
     private fun initPhoto() {
-
+        urlForExample=listOf(
+            getString(R.string.run),
+            getString(R.string.work),
+            getString(R.string.read)
+        )
         photoType1.setOnClickListener {
             resetForeground()
             photoType1.foreground = drawableChoose
@@ -108,7 +111,7 @@ class AddFragment @Inject constructor() : Fragment(R.layout.fragment_add),
             itUrl.text = "".toEditable()
             photoUrl = urlForExample[2]
         }
-        itUrl.setOnFocusChangeListener { v, hasFocus ->
+        itUrl.setOnFocusChangeListener { _, _ ->
             resetForeground()
         }
     }
@@ -124,6 +127,7 @@ class AddFragment @Inject constructor() : Fragment(R.layout.fragment_add),
 
     override fun setFromBundleView(todoBundle: Todo) {
 
+        textTitle.text = "Update your Task"
         itTitle.text = todo.title.toEditable()
         itDescription.text = todo.description.toEditable()
 
@@ -159,22 +163,22 @@ class AddFragment @Inject constructor() : Fragment(R.layout.fragment_add),
         if (::todo.isInitialized) {
 
             docRef.document(todo.id).update(todoPost).addOnSuccessListener {
-                showEvent("Task updated with success", todo.id)
+                showEventSuccess(getString(R.string.toast_updated), todo.id)
                 presenter.navigateBack(callback)
             }.addOnFailureListener { e ->
-                showEvent("Error adding task", e.printStackTrace().toString())
+                showEventError(getString(R.string.toast_error), e.printStackTrace().toString())
                 hideProgressBar()
             }
         } else {
             db.collection("todoList")
                 .add(todoPost)
                 .addOnSuccessListener { documentReference ->
-                    showEvent("Task added with success", documentReference.id)
+                    showEventSuccess(getString(R.string.toast_added), documentReference.id)
                     presenter.navigateBack(callback)
                 }
                 .addOnFailureListener { e ->
 
-                    showEvent("Error adding task", e.printStackTrace().toString())
+                    showEventError(getString(R.string.toast_error), e.printStackTrace().toString())
                     hideProgressBar()
                 }
 
@@ -189,34 +193,21 @@ class AddFragment @Inject constructor() : Fragment(R.layout.fragment_add),
         progress_add.visibility = View.GONE
     }
 
-    override fun showEvent(title: String, info: String) {
+    override fun showEventSuccess(title: String, info: String) {
+        feedbackEvent.onNext(FeedbackEvent(FeedbackEvent.State.SUCCESS,title,info))
+    }
 
-        Log.w("CloudFirestore", "$info")
-
-        try {
-            Toast.makeText(
-                requireContext(),
-                title,
-                Toast.LENGTH_LONG
-            ).show()
-        } catch (e: NullPointerException) {
-
-            Log.w("CloudFirestore", e.printStackTrace().toString())
-        }
-
+    override fun showEventError(title: String, info: String) {
+        feedbackEvent.onNext(FeedbackEvent(FeedbackEvent.State.ERROR,title,info))
     }
 
     override fun navigatePopBack(callback: View) {
-        try {
-            var navController: NavController = Navigation.findNavController(callback)
-            SystemUtils.hideKeyboard(requireActivity())
-            if (navController.currentDestination?.id == R.id.addFragment) {
-                navController.popBackStack()
-            }
-        } catch (e: IllegalStateException) {
-            e.printStackTrace()
-        }
-
+        SystemUtils.hideKeyboard(requireActivity())
+        navEvents.onNext(
+            NavEvent(
+                NavEvent.Destination.ADD
+            )
+        )
     }
 
 
